@@ -1,26 +1,19 @@
 import {Subject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
+
+@Injectable()
 export class AppareilService {
 
   appareilSubject = new Subject<any[]>();
 
   private appareils = [
-    {
-      id: 1,
-      name: 'Machine a laver',
-      status: 'ON'
-    },
-    {
-      id: 2,
-      name: 'Télé',
-      status: 'OFF'
-    },
-    {
-      id: 3,
-      name: 'Ordinateur',
-      status: 'ON'
-    }
+
   ];
+
+  constructor(private httpClient: HttpClient) {
+  }
 
   emitAppareilSubject() {
     this.appareilSubject.next(this.appareils.slice());
@@ -70,6 +63,33 @@ export class AppareilService {
     appareilObject.id = this.appareils[(this.appareils.length - 1)].id + 1;
 
     this.appareils.push(appareilObject);
-    this.emitAppareilSubject()
+    this.emitAppareilSubject();
+  }
+
+  saveAppareilsToServer() {
+    this.httpClient
+      .put('https://openclassroom-angular-d29c1.firebaseio.com/appareils.json', this.appareils)
+      .subscribe(
+        () => {
+          console.log('Terminé');
+        },
+        (e) => {
+          console.log('error');
+        }
+      );
+  }
+
+  getAppareilsFromServer() {
+    this.httpClient
+      .get<any[]>('https://openclassroom-angular-d29c1.firebaseio.com/appareils.json')
+      .subscribe(
+        (response) => {
+          this.appareils = response;
+          this.emitAppareilSubject();
+        },
+        (error) => {
+          console.log('error');
+        }
+      );
   }
 }

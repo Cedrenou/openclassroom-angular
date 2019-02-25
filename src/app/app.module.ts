@@ -24,6 +24,7 @@ import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
 import { UserListComponent } from './user-list/user-list.component';
 import {UserService} from './services/user.service';
 import { NewUserComponent } from './new-user/new-user.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { NewUserComponent } from './new-user/new-user.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     AppareilService,
