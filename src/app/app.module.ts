@@ -1,7 +1,7 @@
 // ANGULAR
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // MODULE
 import {AppRoutingModule} from './app-routing.module';
@@ -21,6 +21,9 @@ import {AppareilService} from './services/appareil.service';
 import {AuthService} from './services/auth.service';
 import {AuthGuard} from './services/auth-guard.service';
 import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
+import { UserListComponent } from './user-list/user-list.component';
+import {UserService} from './services/user.service';
+import { NewUserComponent } from './new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -31,17 +34,21 @@ import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
     AppareilViewComponent,
     SingleAppareilComponent,
     NotFoundComponent,
-    EditAppareilComponent
+    EditAppareilComponent,
+    UserListComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AppareilService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
